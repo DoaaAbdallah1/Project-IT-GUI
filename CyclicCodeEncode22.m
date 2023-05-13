@@ -22,7 +22,7 @@ function varargout = CyclicCodeEncode22(varargin)
 
 % Edit the above text to modify the response to help CyclicCodeEncode22
 
-% Last Modified by GUIDE v2.5 12-Apr-2023 21:30:42
+% Last Modified by GUIDE v2.5 11-May-2023 15:15:56
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -147,7 +147,39 @@ function pushbutton1_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton1 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-u=str2num(get(handles.h1,'string'))
-g=str2num(get(handles.h2,'string'))
-r=encodeCycliCode3(u,g)
+u=str2num(get(handles.h1,'string'));
+g=str2num(get(handles.h2,'string'));
+val=get(handles.m1,'value');
+str=get(handles.m1,'string');
+switch str{val}
+    case 'Direct Method'
+        r=encodeCycliCode(u,g);
+    case 'G(x) Polynomial'
+        r=encodeCycliCode2(u,g);
+    case 'Difference Equation'
+        r=encodeCycliCode3(u,g);
+end
 set(handles.h3,'string',num2str(r))
+
+
+% --- Executes on selection change in m1.
+function m1_Callback(hObject, eventdata, handles)
+% hObject    handle to m1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = cellstr(get(hObject,'String')) returns m1 contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from m1
+
+
+% --- Executes during object creation, after setting all properties.
+function m1_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to m1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: popupmenu controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end

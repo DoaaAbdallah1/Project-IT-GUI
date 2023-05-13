@@ -11,11 +11,7 @@ rem=mod(rem,2)
 rem=fliplr(rem);
 Rx=poly2sym(rem)
 %%%%%%%%
-
-%if(rem==0)
- %   v=r;
-    
-%else
+doaa=find(rem)
 powers=[];
 j=1;
 %to find all powers of x in remanider function
